@@ -4,7 +4,7 @@ from webserver import cheese
 from animate import Animate
 #############
 # Ryan Tan, Timothy Wu
-# Last edited: 02/26/21
+# Last edited: 02/27/21
 #
 ################
 
@@ -12,10 +12,9 @@ from animate import Animate
 client = discord.Client()
 animate = Animate()
 
-
 emote = "⣿⣯⣿⣟⣟⡼⣿⡼⡿⣷⣿⣿⣿⠽⡟⢋⣿⣿⠘⣼⣷⡟⠻⡿⣷⡼⣝⡿⡾⣿\n⣿⣿⣿⣿⢁⣵⡇⡟⠀⣿⣿⣿⠇⠀⡇⣴⣿⣿⣧⣿⣿⡇⠀⢣⣿⣷⣀⡏⢻⣿\n⣿⣿⠿⣿⣿⣿⠷⠁⠀⠛⠛⠋⠀⠂⠹⠿⠿⠿⠿⠿⠉⠁⠀⠘⠛⠛⠛⠃⢸⣯\n⣿⡇⠀⣄⣀⣀⣈⣁⠈⠉⠃⠀⠀⠀⠀⠀⠀⠀⠀⠠⠎⠈⠀⣀⣁⣀⣀⡠⠈⠉\n⣿⣯⣽⡿⢟⡿⠿⠛⠛⠿⣶⣄⠀⠀⠀⠀⠀⠀⠈⢠⣴⣾⠛⠛⠿⠻⠛⠿⣷⣶\n⣿⣿⣿⠀⠀⠀⣿⡿⣶⣿⣫⠉⠀⠀⠀⠀⠀⠀⠀⠈⠰⣿⠿⠾⣿⡇⠀⠀⢺⣿\n⣿⣿⠻⡀⠀⠀⠙⠏⠒⡻⠃⠀⠀⠀⠀⣀⠀⠀⠀⠀⠀⠐⡓⢚⠟⠁⠀⠀⡾⢫\n⣿⣿⠀⠀⡀⠀⠀⡈⣉⡀⡠⣐⣅⣽⣺⣿⣯⡡⣴⣴⣔⣠⣀⣀⡀⢀⡀⡀⠀⣸\n⣿⣿⣷⣿⣟⣿⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢻⢾⣷⣿\n⣿⣿⣟⠫⡾⠟⠫⢾⠯⡻⢟⡽⢶⢿⣿⣿⡛⠕⠎⠻⠝⠪⢖⠝⠟⢫⠾⠜⢿⣿\n⣿⣿⣿⠉⠀⠀⠀⠀⠈⠀⠀⠀⠀⣰⣋⣀⣈⣢⠀⠀⠀⠀⠀⠀⠀⠀⠀⣐⢸⣿\n⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿\n⣿⣿⣿⣿⣦⡔⠀⠀⠀⠀⠀⠀⢻⣿⡿⣿⣿⢽⣿⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿\n⣿⣿⣿⣿⣿⣿⣶⣤⣀⠀⠀⠀⠘⠛⢅⣙⣙⠿⠉⠀⠀⠀⢀⣠⣴⣿⣿⣿⣿⣿\n⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⣄⣅⠀⠓⠀⠀⣀⣠⣴⣺⣿⣿⣿⣿⣿⣿⣿⣿\n"
 
-gif = "https://tenor.com/view/hutao-gif-20541075"
+riebot_help_msg = "`animate` - Send out a random gif from the collection\n`animate insert <tenor gif url>` - Inserts a gif into the database, do not mess up the url or else the world is goign to end.\n`test` - testing\n`whotao` - Whotao?"
 
 #This is the response that the bot should have when it is ready/loaded.
 @client.event
@@ -29,16 +28,21 @@ async def on_message(message):
   if message.author == client.user:
     return
 
+  #!RIEBOT ANIMATE INSERT
+  if message.content.lower().startswith("!riebot animate insert"):
+    await message.channel.send(animate.insert(message.content.lower()))
+
   #This is the Text Interaction between the bot and people.
-  if message.content.lower().startswith("!riebot"):
+  elif message.content.lower().startswith("!riebot"):
     riebot_commands = {
-      "!riebot help": "whotao, test, animate",
+      "!riebot help": riebot_help_msg,
       "!riebot whotao" : "HUUUU TAOOOOOOOOOO",
       "!riebot test": emote,
-      #TIMOTHY WU PLEASE LOOK HERE AT THIS LINE OF CODE CUM >:(
       "!riebot animate": animate.test()
-
     }
+
+    
+
     #if the message fetched from dictionary is not null or not a variation of !riebot help %, send the else string to discord.
     if (riebot_commands.get(message.content.lower() or message.content.lower.startswith("!riebot help"))):
       await message.channel.send(riebot_commands.get(message.content.lower()))
