@@ -3,7 +3,6 @@ import random
 import re
 import numpy as np
 
-db["gif_size"] = 0
 
 class Animate:
   def __init__(self, seed = 69):
@@ -11,7 +10,7 @@ class Animate:
     
   
   def test(self):
-    temp = random.randint(0, db["gif_size"])
+    temp = random.randint(0, db["gif_size"] - 1)
     return db[str(temp)] 
   
 
