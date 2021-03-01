@@ -3,17 +3,36 @@ import random
 import re
 import numpy as np
 
+#db[gif_size] must be manually set to 0 in console after every database wipe
 
 class Animate:
   def __init__(self, seed = 69):
     self.seed = seed
     
   
-  def test(self):
-    temp = random.randint(0, db["gif_size"] - 1)
-    return db[str(temp)] 
+  def randomizer(self): #Keeping track of gifs
+    if db["gif_size"] > 0:
+      temp = random.randint(0, db["gif_size"] - 1)
+      return "[" + str(temp) + "] " + db[str(temp)]
+    else:
+      return "There are no gifs in the database, please add some."
   
+  def delete(self, x):
+    x = re.split("\s", x)[3]
 
+    #Check gif is in database
+    if(int(x) < 0 or int(x) >= db["gif_size"]):
+      return "Can't delete a nonexistent gif"
+
+    #Shift gifs into hole
+    for i in range(int(x), db["gif_size"] - 1):
+      db[str(i)] = db[str(i+1)]
+    del db[str(db["gif_size"] - 1)]
+    db["gif_size"] = db["gif_size"] - 1
+    
+
+
+    return "Gif [" + x + "] deleted!"
 
   def insert(self, gif):
     if (db["gif_size"] < 100):
@@ -28,7 +47,7 @@ class Animate:
       if(gif.startswith("https://tenor.com/")):
         db[str(db["gif_size"])] = gif
         db["gif_size"] = db["gif_size"] + 1
-        return "Insert of " + gif + " complete!"
+        return "Insert of " + gif + " complete! [" + str(db["gif_size"] - 1) + "]"
       else:
         return "This gif is not from tenor.com"
     else:

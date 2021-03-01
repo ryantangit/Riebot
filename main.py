@@ -24,28 +24,34 @@ async def on_ready():
 @client.event
 #Check on the message and see how to process it.
 async def on_message(message):
+  local_message = message.content.lower()
   #If the message is from us, then we don't do anything.
   if message.author == client.user:
     return
 
   #!RIEBOT ANIMATE INSERT
-  if message.content.lower().startswith("!riebot animate insert"):
-    await message.channel.send(animate.insert(message.content.lower()))
+  if local_message.startswith("!riebot animate insert"):
+    await message.channel.send(animate.insert(local_message))
+  
+  #!RIEBOT ANIMATE DELETE
+  elif local_message.startswith("!riebot animate delete"):
+    await message.channel.send(animate.delete(local_message))
+
 
   #This is the Text Interaction between the bot and people.
-  elif message.content.lower().startswith("!riebot"):
+  elif local_message.startswith("!riebot"):
     riebot_commands = {
       "!riebot help": riebot_help_msg,
       "!riebot whotao" : "HUUUU TAOOOOOOOOOO",
       "!riebot test": emote,
-      "!riebot animate": animate.test()
+      "!riebot animate": animate.randomizer()
     }
 
     
 
     #if the message fetched from dictionary is not null or not a variation of !riebot help %, send the else string to discord.
-    if (riebot_commands.get(message.content.lower() or message.content.lower.startswith("!riebot help"))):
-      await message.channel.send(riebot_commands.get(message.content.lower()))
+    if (riebot_commands[local_message] or local_message.startswith("!riebot help")):
+      await message.channel.send(riebot_commands.get(local_message))
     else:
       await message.channel.send("Try using `!riebot help` for more commands.")
 
