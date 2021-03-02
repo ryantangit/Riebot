@@ -1,7 +1,5 @@
-import os
+
 import requests
-import json
-from replit import db
 import discord
 from datetime import datetime
 
@@ -24,6 +22,7 @@ class Weather:
           return "Here is the weather!"
         else:
           return "Error Code " + str(self.weather_info["cod"]) + ": " + self.weather_info["message"]
+
 
 
   #CITY, Description, Time
@@ -52,13 +51,15 @@ class Weather:
       cTemp = str(kToC(self.weather_info["main"]["temp"]))+ "°C"
       fTempFeels = str(kToF(self.weather_info["main"]["feels_like"]))+ "°F"
       cTempFeels = str(kToC(self.weather_info["main"]["feels_like"]))+ "°C"
+      # fTempMin = str(kToF(self.weather_info["main"]["temp_min"]))+ "°F"
+      # cTempMin = str(kToC(self.weather_info["main"]["temp_min"]))+ "°C"
+      # fTempMax = str(kToF(self.weather_info["main"]["temp_max"]))+ "°F"
+      # cTempMax = str(kToC(self.weather_info["main"]["temp_max"]))+ "°C"
       humidity = str(self.weather_info["main"]["humidity"])+ "% "+" "+" "+" "+" "
       windSpeed = str(msTomph(self.weather_info["wind"]["speed"])) + " mph"
       windDirection = compass(self.weather_info["wind"]["deg"])
       time_cur =  self.weather_info["dt"] + self.weather_info["timezone"]
       time_cur = datetime.utcfromtimestamp(time_cur).strftime('%m/%d %H:%M')
-
-
 
       #TITLE CREATION
       tit = self.weather_info["name"]+ ", " + self.weather_info["weather"][0]['description'].title() + ", " + time_cur
