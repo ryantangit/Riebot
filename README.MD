@@ -4,20 +4,33 @@ Riebot Documentation
 
 RYAN TAN, TIMOTHY WU
 
+WE JUST MEMEING
+
 To do:
+- Fix Weather formating when embedded.
+  - add colors and stuff to it.
+- Fix !riebot animate insert
 - Emote Class
 - Implement Rate limits
-- Address command recognitions.
+
 
 
 ** ** * * * * ** * * ** * * ** ** * * * * ** * * ** * * ** ** * * * * ** * * ** * * 
+Changelog
 
 02/26/2021:
+  v 0.0.0
 Riebot was created. Just got it up and running
 
 02/27/2021:
+  v 0.1.0
 Portion of the database is now allocated into handling animated pictures.
 Implemented "animate insert 'tenorurl' to increase the number of gifs. 
 
-2/28/2021
-Added delete animate feature. More bug fixes regarding rate limits/aniamte. 
+2/28/2021:
+  v 0.1.1
+Added delete animate feature. More bug fixes regarding rate limits/animate. 
+
+3/1/2021:
+  v 0.2.0
+Added Weather function using OpenWeatherMap API. Reformated command recognition to improve speed, 0.2cpu btw. Changes to !Riebot help. Reformed Animate message processing.
