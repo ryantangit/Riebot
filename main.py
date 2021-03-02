@@ -32,29 +32,23 @@ async def on_message(message):
 
   message_split = re.split("\s", local_message)
 
-  #!RIEBOT ANIMATE INSERT
-  if local_message.startswith("!riebot animate insert"):
-    await message.channel.send(animate.insert(local_message))
-  
-  #!RIEBOT ANIMATE DELETE
-  elif local_message.startswith("!riebot animate delete"):
-    await message.channel.send(animate.delete(local_message))
-
-
   #This is the Text Interaction between the bot and people.
-  elif local_message.startswith("!riebot"):
+  # First detect if the first part of the message is !riebot, then 
+  # look through the list of commands.
+  #
+  
+  if message_split[0] == "!riebot":
     riebot_commands = {
-      "!riebot help": riebot_help_msg,
-      "!riebot whotao" : "HUUUU TAOOOOOOOOOO",
-      "!riebot test": emote,
-      "!riebot animate": animate.randomizer(),
+      "help": riebot_help_msg,
+      "whotao" : "HUUUU TAOOOOOOOOOO",
+      "test": emote,
+      #Passes in the parameters regarding animate.
+      "animate": animate.resolver(message_split[2:]),
     }
 
-    
-
-    #if the message fetched from dictionary is not null or not a variation of !riebot help %, send the else string to discord.
-    if (local_message in riebot_commands or local_message.startswith("!riebot help")):
-      await message.channel.send(riebot_commands.get(local_message))
+    #if the message is part of the command or not a variation of !riebot help %, send the else string to discord.
+    if (message_split[1] in riebot_commands or local_message.startswith("!riebot help")):
+      await message.channel.send(riebot_commands.get(message_split[1]))
     else:
       await message.channel.send("Try using `!riebot help` for more commands.")
 
