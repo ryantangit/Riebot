@@ -2,6 +2,7 @@ import discord
 import os
 from webserver import cheese
 from animate import Animate
+import re
 #############
 # Ryan Tan, Timothy Wu
 # Last edited: 03/1/21
@@ -29,13 +30,15 @@ async def on_message(message):
   if message.author == client.user:
     return
 
+  message_split = re.split("\s", local_message)
+
   #!RIEBOT ANIMATE INSERT
   if local_message.startswith("!riebot animate insert"):
     await message.channel.send(animate.insert(local_message))
   
   #!RIEBOT ANIMATE DELETE
-  #elif local_message.startswith("!riebot animate delete"):
-    #await message.channel.send(animate.delete(local_message))
+  elif local_message.startswith("!riebot animate delete"):
+    await message.channel.send(animate.delete(local_message))
 
 
   #This is the Text Interaction between the bot and people.
@@ -45,7 +48,6 @@ async def on_message(message):
       "!riebot whotao" : "HUUUU TAOOOOOOOOOO",
       "!riebot test": emote,
       "!riebot animate": animate.randomizer(),
-      "!riebot delete": animate.delete(local_message)
     }
 
     
