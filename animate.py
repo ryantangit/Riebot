@@ -20,9 +20,9 @@ class Animate:
       return self.randomizer()
     elif message[0].isnumeric():
       return self.selected(message[0])
-    elif message[0] == "insert":
+    elif message[0] == "insert" and len(message)> 1:
       return self.insert(message[1])
-    elif message[0] == "delete":
+    elif message[0] == "delete" and len(message)> 1:
       return self.delete(message[1])
     return "Animate Resolver Error"
 

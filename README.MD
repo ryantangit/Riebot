@@ -7,9 +7,7 @@ RYAN TAN, TIMOTHY WU
 WE JUST MEMEING
 
 To do:
-- Fix Weather formating when embedded.
-  - add colors and stuff to it.
-- Fix !riebot animate insert
+
 - Emote Class
 - Implement Rate limits
 
@@ -34,3 +32,7 @@ Added delete animate feature. More bug fixes regarding rate limits/animate.
 3/1/2021:
   v 0.2.0
 Added Weather function using OpenWeatherMap API. Reformated command recognition to improve speed, 0.2cpu btw. Changes to !Riebot help. Reformed Animate message processing.
+
+3/2/2021:
+  v 0.2.1 
+  Improved animate insert message, fixed weather formatting.

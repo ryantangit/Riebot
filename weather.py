@@ -21,7 +21,7 @@ class Weather:
         if(self.weather_info["cod"] == 200):
           return "Here is the weather!"
         else:
-          return "Error Code " + str(self.weather_info["cod"]) + ": " + self.weather_info["message"]
+          return "Error Code " + str(self.weather_info["cod"]) + ": " + self.weather_info["message"].title()
 
 
 
