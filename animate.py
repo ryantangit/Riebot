@@ -18,7 +18,7 @@ class Animate:
       return "There are no gifs in the database, please add some."
   
   def delete(self, x):
-    x = re.split("\s", x)[3]
+    x = re.split("\s", x)[2]
 
     #Check gif is in database
     if(int(x) < 0 or int(x) >= db["gif_size"]):
@@ -30,8 +30,6 @@ class Animate:
     del db[str(db["gif_size"] - 1)]
     db["gif_size"] = db["gif_size"] - 1
     
-
-
     return "Gif [" + x + "] deleted!"
 
   def insert(self, gif):

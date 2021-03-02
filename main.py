@@ -34,8 +34,8 @@ async def on_message(message):
     await message.channel.send(animate.insert(local_message))
   
   #!RIEBOT ANIMATE DELETE
-  elif local_message.startswith("!riebot animate delete"):
-    await message.channel.send(animate.delete(local_message))
+  #elif local_message.startswith("!riebot animate delete"):
+    #await message.channel.send(animate.delete(local_message))
 
 
   #This is the Text Interaction between the bot and people.
@@ -44,7 +44,8 @@ async def on_message(message):
       "!riebot help": riebot_help_msg,
       "!riebot whotao" : "HUUUU TAOOOOOOOOOO",
       "!riebot test": emote,
-      "!riebot animate": animate.randomizer()
+      "!riebot animate": animate.randomizer(),
+      "!riebot delete": animate.delete(local_message)
     }
 
     
