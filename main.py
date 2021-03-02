@@ -4,7 +4,7 @@ from webserver import cheese
 from animate import Animate
 #############
 # Ryan Tan, Timothy Wu
-# Last edited: 02/27/21
+# Last edited: 03/1/21
 #
 ################
 
@@ -50,7 +50,7 @@ async def on_message(message):
     
 
     #if the message fetched from dictionary is not null or not a variation of !riebot help %, send the else string to discord.
-    if (riebot_commands[local_message] or local_message.startswith("!riebot help")):
+    if (local_message in riebot_commands or local_message.startswith("!riebot help")):
       await message.channel.send(riebot_commands.get(local_message))
     else:
       await message.channel.send("Try using `!riebot help` for more commands.")
