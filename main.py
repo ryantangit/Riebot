@@ -49,6 +49,8 @@ async def on_message(message):
         riebot_response = riebot_help_msg
       elif message_split[1] == "whotao":
         riebot_response = "HUUUU TAOOOOOOOOOO"
+      elif message_split[1] == "mina":
+        riebot_response = "MINARIIII II I I I II I I I!!!!!!!"
       elif message_split[1] == "test":
         riebot_response = emote
       elif message_split[1] == "animate":

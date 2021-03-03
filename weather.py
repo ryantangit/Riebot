@@ -21,7 +21,7 @@ class Weather:
         if(self.weather_info["cod"] == 200):
           return "Here is the weather!"
         else:
-          return "Error Code " + str(self.weather_info["cod"]) + ": " + self.weather_info["message"]
+          return "Error Code " + str(self.weather_info["cod"]) + ": " + self.weather_info["message"].title()
 
 
 
@@ -60,11 +60,15 @@ class Weather:
       windDirection = compass(self.weather_info["wind"]["deg"])
       time_cur =  self.weather_info["dt"] + self.weather_info["timezone"]
       time_cur = datetime.utcfromtimestamp(time_cur).strftime('%m/%d %H:%M')
+      sun_rise = self.weather_info["sys"]['sunrise'] + self.weather_info["timezone"]
+      sun_rise = datetime.utcfromtimestamp(sun_rise).strftime('%H:%M')
+      sun_set = self.weather_info["sys"]['sunset'] + self.weather_info["timezone"]
+      sun_set = datetime.utcfromtimestamp(sun_set).strftime('%H:%M')
 
       #TITLE CREATION
       tit = self.weather_info["name"]+ ", " + self.weather_info["weather"][0]['description'].title() + ", " + time_cur
       #DESCRIPTION CREATION
-      desc = "`Temp current:` " + fTemp + " / " + cTemp + " \n" + "`Feels like:` " + fTempFeels + " / " + cTempFeels +"\n" + "`Wind Speed:` " + windSpeed + " " +  windDirection+ "\n" + "`Humidity:` " + humidity
+      desc = "`Temp current:` " + fTemp + " / " + cTemp + " \n" + "`Feels like:` " + fTempFeels + " / " + cTempFeels +"\n" + "`Wind Speed:` " + windSpeed + " " +  windDirection+ "\n" + "`Humidity:` " + humidity + "\n" + "`Sunrise:` " + sun_rise + "\n" + '`Sunset:` ' + sun_set
       
       
 
