@@ -27,13 +27,15 @@ async def on_ready():
 
 @client.event
 #Check on the message and see how to process it.
-async def on_message(message):
-  local_message = message.content.lower()
+async def on_message(message):  
+  local_message = message
+  author = message.author
+  print(type(author))
   #If the message is from us, then we don't do anything.
   if message.author == client.user:
     return
-
-  message_split = re.split("\s", local_message)
+  message_content = local_message.content.lower()
+  message_split = re.split("\s", message_content)
   embed_with_me = False
   embedded = None
   #This is the Text Interaction between the bot and people.

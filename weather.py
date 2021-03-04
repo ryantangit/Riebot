@@ -72,8 +72,12 @@ class Weather:
       
       
 
+      #The default icons are boring so we gotta spice things up.
+      image_id = self.weather_info['weather'][0]['icon']
+      icon_to_html = {"01d": None, "02d": None, "03d": None, "04d": None, "09d": None, "10d": None, "11d": None, "13d":None, "50d": None, "01n": None, "02n": None, "03n": None, "04n": None, "09n": None, "10n": None, "11n": None, "13n": None, "50n": None}
+
       e = discord.Embed(title= tit, description= desc, colour = discord.Colour.dark_gold())
-      e.set_thumbnail(url="http://openweathermap.org/img/wn/"+self.weather_info['weather'][0]['icon'] +"@2x.png")
+      e.set_thumbnail(url= "http://openweathermap.org/img/wn/" + image_id + "@2x.png")
       return [True, e]
     else:
       return [False, None]
