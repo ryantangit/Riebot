@@ -33,8 +33,8 @@ class Weather:
     
   ############  
   #HELPERS
-    kToC = lambda kelvin: round(kelvin - 273.15, 1)
-    kToF = lambda kelvin: round(kToC(kelvin) * 9/5, 1) + 32
+    kToC = lambda kelvin: round(kelvin - 273.15)
+    kToF = lambda kelvin: round(kToC(kelvin) * 9/5) + 32
     msTomph = lambda ms: round(ms * 2.237)
     def compass(degree):
       directions = [0, 45, 90, 135, 180, 225, 270, 315]
@@ -73,9 +73,29 @@ class Weather:
 
       #The default icons are boring so we gotta spice things up.
       image_id = self.weather_info['weather'][0]['icon']
-      icon_to_html = {"01d": None, "02d": None, "03d": None, "04d": None, "09d": None, "10d": None, "11d": None, "13d":None, "50d": None, "01n": None, "02n": None, "03n": None, "04n": None, "09n": None, "10n": None, "11n": None, "13n": None, "50n": None}
+      icon_to_html = {
+      "01d": "https://i.ibb.co/Fw5mhP0/sunny01d.jpg", 
+      "02d": "https://i.ibb.co/YdWZ7Wr/cloudsday.png", 
+      "03d": "https://i.ibb.co/pfxw4wh/scattered.jpg", 
+      "04d": "https://i.ibb.co/pfxw4wh/scattered.jpg", 
+      "09d": "https://i.ibb.co/m4RY59w/rain.png", 
+      "10d": "https://i.ibb.co/QPY4q6s/rain2.jpg", 
+      "11d": "https://i.ibb.co/5xp1D3n/thunderstorm.jpg", 
+      "13d": "https://i.ibb.co/vBhw4kZ/snow.jpg", 
+      "50d": "https://i.ibb.co/YRDm37z/mist.png", 
+      "01n": "https://i.ibb.co/txHxLZ6/clearsky1n.jpg" , 
+      "02n": "https://i.ibb.co/hs0kvPR/cloudsnight.jpg", 
+      "03n": "https://i.ibb.co/pfxw4wh/scattered.jpg", 
+      "04n": "https://i.ibb.co/pfxw4wh/scattered.jpg", 
+      "09n": "https://i.ibb.co/m4RY59w/rain.png", 
+      "10n": "https://i.ibb.co/QPY4q6s/rain2.jpg", 
+      "11n": "https://i.ibb.co/5xp1D3n/thunderstorm.jpg", 
+      "13n": "https://i.ibb.co/vBhw4kZ/snow.jpg", 
+      "50n": "https://i.ibb.co/YRDm37z/mist.png"}
 
       e = discord.Embed(title= tit, description= desc, colour = discord.Colour.dark_gold())
+      # old version: "http://openweathermap.org/img/wn/" + image_id + "@2x.png")
+      # hosted pictures: icon_to_html[image_id]
       e.set_thumbnail(url= "http://openweathermap.org/img/wn/" + image_id + "@2x.png")
       return [True, e]
     else:

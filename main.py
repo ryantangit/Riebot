@@ -32,7 +32,6 @@ async def on_ready():
 async def on_message(message):  
   local_message = message
   author = local_message.author.name
-  ranking.name_checker(author)
   #If the message is from us, then we don't do anything.
   if local_message.author == client.user:
     return
@@ -53,6 +52,8 @@ async def on_message(message):
         riebot_response = riebot_help_msg
       elif message_split[1] == "whotao":
         riebot_response = "HUUUU TAOOOOOOOOOO"
+      elif message_split[1] == "rank":
+        riebot_response = ranking.status(author)
       elif message_split[1] == "mina":
         riebot_response = "MINARIIII II I I I II I I I!!!!!!!"
       elif message_split[1] == "test":
@@ -63,13 +64,15 @@ async def on_message(message):
         weather_bot = Weather(os.getenv('OpenWeather_API'))
         riebot_response = weather_bot.resolver(message_split[2:])
         embed_with_me, embedded = weather_bot.embed()
-        
     
     #yeet message
     if(not embed_with_me):
       await message.channel.send(riebot_response)
     else:
       await message.channel.send(embed = embedded)
+
+  else:
+    ranking.exp_gift(author)
 
 
 cheese()
