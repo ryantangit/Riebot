@@ -4,6 +4,8 @@ from webserver import cheese
 from animate import Animate
 from weather import Weather
 from ranking import Ranking
+from tictactoe import TicTacToe
+from replit import db
 import re
 
 #############
@@ -17,6 +19,7 @@ import re
 client = discord.Client()
 animate = Animate()
 ranking = Ranking()
+tictoe = TicTacToe()
 
 emote = "⣿⣯⣿⣟⣟⡼⣿⡼⡿⣷⣿⣿⣿⠽⡟⢋⣿⣿⠘⣼⣷⡟⠻⡿⣷⡼⣝⡿⡾⣿\n⣿⣿⣿⣿⢁⣵⡇⡟⠀⣿⣿⣿⠇⠀⡇⣴⣿⣿⣧⣿⣿⡇⠀⢣⣿⣷⣀⡏⢻⣿\n⣿⣿⠿⣿⣿⣿⠷⠁⠀⠛⠛⠋⠀⠂⠹⠿⠿⠿⠿⠿⠉⠁⠀⠘⠛⠛⠛⠃⢸⣯\n⣿⡇⠀⣄⣀⣀⣈⣁⠈⠉⠃⠀⠀⠀⠀⠀⠀⠀⠀⠠⠎⠈⠀⣀⣁⣀⣀⡠⠈⠉\n⣿⣯⣽⡿⢟⡿⠿⠛⠛⠿⣶⣄⠀⠀⠀⠀⠀⠀⠈⢠⣴⣾⠛⠛⠿⠻⠛⠿⣷⣶\n⣿⣿⣿⠀⠀⠀⣿⡿⣶⣿⣫⠉⠀⠀⠀⠀⠀⠀⠀⠈⠰⣿⠿⠾⣿⡇⠀⠀⢺⣿\n⣿⣿⠻⡀⠀⠀⠙⠏⠒⡻⠃⠀⠀⠀⠀⣀⠀⠀⠀⠀⠀⠐⡓⢚⠟⠁⠀⠀⡾⢫\n⣿⣿⠀⠀⡀⠀⠀⡈⣉⡀⡠⣐⣅⣽⣺⣿⣯⡡⣴⣴⣔⣠⣀⣀⡀⢀⡀⡀⠀⣸\n⣿⣿⣷⣿⣟⣿⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢻⢾⣷⣿\n⣿⣿⣟⠫⡾⠟⠫⢾⠯⡻⢟⡽⢶⢿⣿⣿⡛⠕⠎⠻⠝⠪⢖⠝⠟⢫⠾⠜⢿⣿\n⣿⣿⣿⠉⠀⠀⠀⠀⠈⠀⠀⠀⠀⣰⣋⣀⣈⣢⠀⠀⠀⠀⠀⠀⠀⠀⠀⣐⢸⣿\n⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿\n⣿⣿⣿⣿⣦⡔⠀⠀⠀⠀⠀⠀⢻⣿⡿⣿⣿⢽⣿⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿\n⣿⣿⣿⣿⣿⣿⣶⣤⣀⠀⠀⠀⠘⠛⢅⣙⣙⠿⠉⠀⠀⠀⢀⣠⣴⣿⣿⣿⣿⣿\n⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⣄⣅⠀⠓⠀⠀⣀⣠⣴⣺⣿⣿⣿⣿⣿⣿⣿⣿\n"
 
@@ -25,13 +28,16 @@ riebot_help_msg = "`animate <gif_number>(optional)` - Send out a random(or selec
 #This is the response that the bot should have when it is ready/loaded.
 @client.event
 async def on_ready():
+  await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="the Sounds of Rie"))
   print("We have logged in as {0.user}".format(client))
 
 @client.event
 #Check on the message and see how to process it.
 async def on_message(message):  
   local_message = message
-  author = local_message.author.name
+  author = str(local_message.author.id)
+  user = await client.fetch_user(local_message.author.id)
+  avatar = user.avatar_url
   #If the message is from us, then we don't do anything.
   if local_message.author == client.user:
     return
@@ -53,10 +59,14 @@ async def on_message(message):
       elif message_split[1] == "whotao":
         riebot_response = "HUUUU TAOOOOOOOOOO"
       elif message_split[1] == "rank":
-        riebot_response = ranking.status(author)
+        embed_with_me, embedded = ranking.status(author, avatar, user.name)
+      elif message_split[1] == "hello":
+        riebot_response = "Hello " + user.mention
       elif message_split[1] == "mina":
         riebot_response = "MINARIIII II I I I II I I I!!!!!!!"
       elif message_split[1] == "test":
+        embed_with_me = True
+        embedded = discord.Embed(title= "Test", description= "I actually like to eat bananas when they are frozen.", colour = discord.Colour.dark_gold())
         riebot_response = emote
       elif message_split[1] == "animate":
         riebot_response = animate.resolver(message_split[2:])
@@ -64,6 +74,9 @@ async def on_message(message):
         weather_bot = Weather(os.getenv('OpenWeather_API'))
         riebot_response = weather_bot.resolver(message_split[2:])
         embed_with_me, embedded = weather_bot.embed()
+      elif message_split[1] == "ttt":
+        riebot_response = tictoe.resolver(message_split[2:])
+        
     
     #yeet message
     if(not embed_with_me):
@@ -72,8 +85,8 @@ async def on_message(message):
       await message.channel.send(embed = embedded)
 
   else:
-    ranking.exp_gift(author)
+    ranking.timer(author)
 
 
 cheese()
-client.run(os.getenv('TOKEN'))
+client.run(os.getenv('TOKEN'))  

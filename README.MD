@@ -8,7 +8,7 @@ WE JUST MEMEING
 
 To do:
 
-- Emote Class
+- Tic Tac Toe Class
 - Implement Rate limits
 
 
@@ -35,4 +35,20 @@ Added Weather function using OpenWeatherMap API. Reformated command recognition 
 
 3/2/2021:
   v 0.2.1 
-  Improved animate insert message, fixed weather formatting.
+Improved animate insert message, fixed weather formatting.
+
+3/3/2021:
+  v 0.3.0
+Added Ranking function. Ability to earn exp for every message sent and ability to view current user exp.
+
+3/4/2021:
+  v 0.3.1
+Added cooldown function to Ranking. Limit ability to earn exp based on time.
+
+4/7/2021:
+  v 0.3.2
+Rank checks now return an embedded message
+  
+4/19/2021:
+  v 0.4.1
+Added in the TicTacToe class, basic board functions.
